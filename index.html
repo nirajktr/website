@@ -3,8 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Niraj Kumar</title>
+  <meta name="description" content="Niraj Khatri - Software Engineer Portfolio" />
+  <title>Niraj Khatri</title>
   <style>
+    :root {
+      --bg: #111;
+      --surface: rgba(26, 26, 26, 0.95);
+      --surface-hover: #252525;
+      --text-primary: #f0f0f0;
+      --text-muted: #aaa;
+      --border: #333;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -12,16 +23,17 @@
     }
 
     body {
-      background-color: #111;
-      color: #f0f0f0;
+      background-color: var(--bg);
+      color: var(--text-primary);
       font-family: 'Segoe UI', system-ui, sans-serif;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      line-height: 1.6;
     }
 
-    .container {
+    main.container {
       text-align: center;
       max-width: 560px;
       width: 100%;
@@ -29,17 +41,17 @@
     }
 
     h1 {
-      font-size: 2.4rem;
+      font-size: clamp(2rem, 5vw, 2.5rem);
       font-weight: 600;
       letter-spacing: 0.02em;
       margin-bottom: 1rem;
     }
 
     .bio {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #aaa;
+      font-size: 1.05rem;
+      color: var(--text-muted);
       margin-bottom: 2.5rem;
+      text-wrap: balance;
     }
 
     nav {
@@ -56,7 +68,7 @@
     nav a, nav button {
       background: none;
       border: none;
-      color: #f0f0f0;
+      color: var(--text-primary);
       font-size: 0.95rem;
       font-family: inherit;
       letter-spacing: 0.06em;
@@ -65,35 +77,45 @@
       cursor: pointer;
       padding: 0.25rem 0;
       border-bottom: 1px solid transparent;
-      transition: border-color 0.2s, color 0.2s;
+      transition: border-color var(--transition), color var(--transition);
     }
 
     nav a:hover, nav button:hover,
     nav button[aria-expanded="true"] {
-      border-bottom-color: #f0f0f0;
+      border-bottom-color: var(--text-primary);
       color: #fff;
     }
 
+    nav a:focus-visible, nav button:focus-visible {
+      outline: 2px solid var(--text-primary);
+      outline-offset: 6px;
+      border-radius: 2px;
+    }
+
     .dropdown {
-      overflow: hidden;
-      max-height: 0;
       opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.35s ease;
+      visibility: hidden;
+      transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
       position: absolute;
       top: calc(100% + 0.75rem);
       left: 50%;
-      transform: translateX(-50%);
-      background-color: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 6px;
+      transform: translateX(-50%) translateY(-10px);
+      background-color: var(--surface);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
       text-align: left;
       min-width: 220px;
       white-space: nowrap;
+      z-index: 10;
     }
 
     .dropdown.open {
-      max-height: 500px;
       opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
     }
 
     .dropdown ul {
@@ -104,28 +126,28 @@
     .dropdown li a {
       display: block;
       padding: 0.55rem 1.2rem;
-      color: #ccc;
+      color: var(--text-muted);
       font-size: 0.88rem;
       letter-spacing: 0.03em;
       text-transform: none;
       border-bottom: none;
-      transition: color 0.2s, background 0.2s;
+      transition: color var(--transition), background var(--transition);
     }
 
     .dropdown li a:hover {
       color: #fff;
-      background-color: #252525;
+      background-color: var(--surface-hover);
       border-bottom: none;
     }
 
     .dropdown li + li {
-      border-top: 1px solid #2a2a2a;
+      border-top: 1px solid var(--border);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Niraj Kumar</h1>
+  <main class="container">
+    <h1>Niraj Khatri</h1>
     <p class="bio">
       Software engineer passionate about building clean, efficient systems.
       I enjoy working across the stack and turning ideas into real products.
@@ -139,25 +161,23 @@
 
       <!-- Projects toggle -->
       <div class="nav-item">
-        <button id="projects-btn" aria-expanded="false" aria-controls="projects-dropdown"
-                onclick="toggle('projects')">Projects</button>
-        <div id="projects-dropdown" class="dropdown" role="list">
+        <button id="projects-btn" aria-expanded="false" aria-controls="projects-dropdown" aria-haspopup="menu">Projects</button>
+        <div id="projects-dropdown" class="dropdown">
           <ul>
-            <li><a href="#" role="listitem">Portfolio Website — Personal site built with vanilla HTML/CSS/JS</a></li>
-            <li><a href="#" role="listitem">Project Two — Brief description of what this project does</a></li>
-            <li><a href="#" role="listitem">Project Three — Brief description of what this project does</a></li>
+            <li><a href="#">Portfolio Website — Personal site built with vanilla HTML/CSS/JS</a></li>
+            <li><a href="#">Project Two — Brief description of what this project does</a></li>
+            <li><a href="#">Project Three — Brief description of what this project does</a></li>
           </ul>
         </div>
       </div>
 
       <!-- Experience toggle -->
       <div class="nav-item">
-        <button id="experience-btn" aria-expanded="false" aria-controls="experience-dropdown"
-                onclick="toggle('experience')">Experience</button>
-        <div id="experience-dropdown" class="dropdown" role="list">
+        <button id="experience-btn" aria-expanded="false" aria-controls="experience-dropdown" aria-haspopup="menu">Experience</button>
+        <div id="experience-dropdown" class="dropdown">
           <ul>
-            <li><a href="#" role="listitem">Company A — Software Engineer Intern · Summer 2024</a></li>
-            <li><a href="#" role="listitem">Company B — Full-Stack Developer · 2023–2024</a></li>
+            <li><a href="#">Company A — Software Engineer Intern · Summer 2024</a></li>
+            <li><a href="#">Company B — Full-Stack Developer · 2023–2024</a></li>
           </ul>
         </div>
       </div>
@@ -167,39 +187,36 @@
         <a href="mailto:niraj@example.com">Contact</a>
       </div>
     </nav>
-  </div>
+  </main>
 
   <script>
-    function toggle(id) {
-      const dropdown = document.getElementById(id + '-dropdown');
-      const btn = document.getElementById(id + '-btn');
-      const isOpen = dropdown.classList.contains('open');
+    document.addEventListener('DOMContentLoaded', () => {
+      const closeAllDropdowns = () => {
+        document.querySelectorAll('.dropdown.open').forEach(el => el.classList.remove('open'));
+        document.querySelectorAll('button[aria-expanded="true"]').forEach(el => el.setAttribute('aria-expanded', 'false'));
+      };
 
-      // Close all dropdowns first
-      document.querySelectorAll('.dropdown.open').forEach(function(el) {
-        el.classList.remove('open');
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[aria-haspopup="menu"]');
+        
+        if (btn) {
+          const dropdown = document.getElementById(btn.getAttribute('aria-controls'));
+          const isOpen = dropdown.classList.contains('open');
+          
+          closeAllDropdowns();
+          
+          if (!isOpen) {
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        } else if (!e.target.closest('.nav-item')) {
+          closeAllDropdowns();
+        }
       });
-      document.querySelectorAll('button[aria-expanded="true"]').forEach(function(el) {
-        el.setAttribute('aria-expanded', 'false');
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAllDropdowns();
       });
-
-      // If it was closed, open it now
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.nav-item')) {
-        document.querySelectorAll('.dropdown.open').forEach(function(el) {
-          el.classList.remove('open');
-        });
-        document.querySelectorAll('button[aria-expanded="true"]').forEach(function(el) {
-          el.setAttribute('aria-expanded', 'false');
-        });
-      }
     });
   </script>
 </body>
