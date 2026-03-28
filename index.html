@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niraj Kumar</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #111;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 560px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .bio {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #aaa;
+      margin-bottom: 2.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    nav a, nav button {
+      background: none;
+      border: none;
+      color: #f0f0f0;
+      font-size: 0.95rem;
+      font-family: inherit;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    nav a:hover, nav button:hover,
+    nav button[aria-expanded="true"] {
+      border-bottom-color: #f0f0f0;
+      color: #fff;
+    }
+
+    .dropdown {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.35s ease;
+      position: absolute;
+      top: calc(100% + 0.75rem);
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      text-align: left;
+      min-width: 220px;
+      white-space: nowrap;
+    }
+
+    .dropdown.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .dropdown ul {
+      list-style: none;
+      padding: 0.5rem 0;
+    }
+
+    .dropdown li a {
+      display: block;
+      padding: 0.55rem 1.2rem;
+      color: #ccc;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+      text-transform: none;
+      border-bottom: none;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .dropdown li a:hover {
+      color: #fff;
+      background-color: #252525;
+      border-bottom: none;
+    }
+
+    .dropdown li + li {
+      border-top: 1px solid #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Niraj Kumar</h1>
+    <p class="bio">
+      Software engineer passionate about building clean, efficient systems.
+      I enjoy working across the stack and turning ideas into real products.
+    </p>
+
+    <nav>
+      <!-- Resume: direct link -->
+      <div class="nav-item">
+        <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+
+      <!-- Projects toggle -->
+      <div class="nav-item">
+        <button id="projects-btn" aria-expanded="false" aria-controls="projects-dropdown"
+                onclick="toggle('projects')">Projects</button>
+        <div id="projects-dropdown" class="dropdown" role="list">
+          <ul>
+            <li><a href="#" role="listitem">Portfolio Website — Personal site built with vanilla HTML/CSS/JS</a></li>
+            <li><a href="#" role="listitem">Project Two — Brief description of what this project does</a></li>
+            <li><a href="#" role="listitem">Project Three — Brief description of what this project does</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Experience toggle -->
+      <div class="nav-item">
+        <button id="experience-btn" aria-expanded="false" aria-controls="experience-dropdown"
+                onclick="toggle('experience')">Experience</button>
+        <div id="experience-dropdown" class="dropdown" role="list">
+          <ul>
+            <li><a href="#" role="listitem">Company A — Software Engineer Intern · Summer 2024</a></li>
+            <li><a href="#" role="listitem">Company B — Full-Stack Developer · 2023–2024</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact: direct link -->
+      <div class="nav-item">
+        <a href="mailto:niraj@example.com">Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    function toggle(id) {
+      const dropdown = document.getElementById(id + '-dropdown');
+      const btn = document.getElementById(id + '-btn');
+      const isOpen = dropdown.classList.contains('open');
+
+      // Close all dropdowns first
+      document.querySelectorAll('.dropdown.open').forEach(function(el) {
+        el.classList.remove('open');
+      });
+      document.querySelectorAll('button[aria-expanded="true"]').forEach(function(el) {
+        el.setAttribute('aria-expanded', 'false');
+      });
+
+      // If it was closed, open it now
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-item')) {
+        document.querySelectorAll('.dropdown.open').forEach(function(el) {
+          el.classList.remove('open');
+        });
+        document.querySelectorAll('button[aria-expanded="true"]').forEach(function(el) {
+          el.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
